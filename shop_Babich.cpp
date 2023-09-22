@@ -8,7 +8,7 @@ errno_t err;
 
 const char filename[] = "data.txt";
 char buffer[100];
-int start_money = 100;
+int start_money;
 int final_money;
 int database_size;
 
@@ -22,11 +22,11 @@ struct PRODUCT {
     int price;
 }
 struct PRODUCT* database;
-struct PRODUCT goods[50];
-int print_product(struct PRODUCT* instance){
-	printf("ID=%d, \t %s \t %s", instance->ID, instance->name, instance->manufacturer);
+void print_product(struct PRODUCT* instance){
+	printf("ID=%d, \t %s \t %s \n", instance->ID, instance->name, instance->manufacturer);
+	return;
 }
-struct PRODUCT* read_file(){ //returns the pointer to dataset
+struct PRODUCT* read_file(){ 
 	struct PRODUCT* new_database = (struct PRODUCT*) malloc ()
 	int size = 0;
 	FILE* textFileInput;
@@ -52,6 +52,7 @@ struct ZAKAZNIK {
     char surname[20];
     int budget;
     int deals;
+    struct PRODUCT goods[50];
 }
 struct ZAKAZNIK user;
 struct ZAKAZNIK get_user_info(){
@@ -64,14 +65,14 @@ struct ZAKAZNIK get_user_info(){
 	return new_user;
 }
 
+//---
+
 int search_by_name(){
 	
 }
-
 int search_by_manufacturer(){
 	
 }
-
 int search(){
 	char choice = '0';
 	int finish_flag = 0;
@@ -96,13 +97,19 @@ int search(){
 			//update report
 		} else {
 			printf("Thank you for choosing us \n");
-			break
+			break;
 		}
 	}
 }
 
+//---
+
 int report(){
-	printf("Total cost: %d \n", )
+	final_money = start_money - user.budget;
+	printf("Total cost: %d \n", final_money);
+	for(int i = 0; i < user.deals; i++){
+		print_product(&user.goods[i]);
+	}
 }
 
 int main(){
