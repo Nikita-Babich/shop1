@@ -27,6 +27,11 @@ void print_product(struct PRODUCT* instance){
 	printf("ID=%d, \t %s \t %s \n", instance->ID, instance->name, instance->manufacturer);
 	return;
 }
+void print_product2(struct PRODUCT* instance){
+	printf("ID=%d, \t %s \t %s \n", instance->ID, instance->name, instance->manufacturer);
+	printf("Amount = %d, \t Price = %d \n", instance->amount, instance->price);
+	return;
+}
 struct PRODUCT* read_file(){ 
 	FILE* textFileInput;
 	err = fopen_s(&textFileInput, "data.txt", "r");
@@ -73,12 +78,17 @@ int search_by_name(){
 int search_by_manufacturer(){
 	
 }
+int find_dataset_pos_by_id(int choice2){
+	
+}
 int search(){
 	char choice = '0';
+	int choice2 = -1;
+	int dataset_pos = -1;
 	int finish_flag = 0;
 	while(true){
 		printf("1 - search by name, \t 2 - search by manufacturer, \t 3 - finish shopping \n");
-		read_char(&choice);
+		scanf("%c", &choice); //read_char(&choice);
 		switch(choice) {
 			case '1':
 				printf("input the name: \n");
@@ -91,7 +101,11 @@ int search(){
 		}
 		
 		if (choice != '3'){
-			//choose id to get further info
+			printf("Choose id to get further info\n");
+			scanf("%d", &choice2);
+			printf("Here is the info about the product\n");
+			dataset_pos = find_dataset_pos_by_id(choice2);
+			print_product2(&dataset[dataset_pos]);
 			//print the id
 			//will you buy?
 			//update report
