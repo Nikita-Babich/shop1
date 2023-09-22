@@ -106,9 +106,15 @@ int search(){
 			printf("Here is the info about the product\n");
 			dataset_pos = find_dataset_pos_by_id(choice2);
 			print_product2(&dataset[dataset_pos]);
-			//print the id
-			//will you buy?
-			//update report
+			printf("Will you buy the product? A - yes, N - no\n");
+			scanf("%c", &choice); 
+			if (choice == 'A'){
+				user.budget -= dataset[dataset_pos]->price;
+				user.goods[user.deals] = dataset[dataset_pos]; // a[b] = *(a+b*struct_size)
+				user.deals++;
+				//update report
+			}
+			
 		} else {
 			printf("Thank you for choosing us \n");
 			break;
@@ -129,7 +135,6 @@ void report(){
 int main(){
 	user = get_user_info();
 	database = (struct PRODUCT*) read_file();
-	
     search();
     report();
     return 0;
