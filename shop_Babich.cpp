@@ -7,7 +7,8 @@
 errno_t err;
 
 const char filename[] = "data.txt";
-char buffer[100];
+const char check[] = "check.txt";
+//char buffer[100];
 int start_money;
 int final_money;
 int database_size;
@@ -27,10 +28,9 @@ void print_product(struct PRODUCT* instance){
 	return;
 }
 struct PRODUCT* read_file(){ 
-	struct PRODUCT* new_database = (struct PRODUCT*) malloc ()
-	int size = 0;
 	FILE* textFileInput;
 	err = fopen_s(&textFileInput, "data.txt", "r");
+	fscanf(textFileInput, "%d", &database_size);
 	struct PRODUCT* new_database = (struct PRODUCT*) malloc (sizeof(struct PRODUCT) * database_size);
 	for(int i = 0; i < database_size; i++){
 		fscanf(textFileInput, "%d %s %s %d %d", 
@@ -42,7 +42,7 @@ struct PRODUCT* read_file(){
 		)
 	}
 	fclose(textFileInput);
-	return size; //?
+	return new_database; //?
 }
 
 //---
@@ -104,7 +104,7 @@ int search(){
 
 //---
 
-int report(){
+void report(){
 	final_money = start_money - user.budget;
 	printf("Total cost: %d \n", final_money);
 	for(int i = 0; i < user.deals; i++){
