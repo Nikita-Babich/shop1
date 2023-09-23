@@ -1,3 +1,5 @@
+// https://github.com/Nikita-Babich/shop1
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
