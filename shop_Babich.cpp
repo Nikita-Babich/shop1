@@ -82,30 +82,39 @@ int string_equal(char first[20], char second[20]){
 	return 1;
 }
 void search_by_name(char input[20]){
+	int total = 0;
 	for( int i = 0; i < database_size; i++){
 		if (string_equal(database[i].name, input)){
 			print_product(&database[i]);
+			total++;
 		}
+	}
+	if(total==0){
+		printf("Nothing was found\n");
 	}
 	return;
 }
 void search_by_manufacturer(char input[20]){
+	int total = 0;
 	for( int i = 0; i < database_size; i++){
 		if (string_equal(database[i].manufacturer, input)){
 			print_product(&database[i]);
+			total++;
 		}
+	}
+	if(total==0){
+		printf("Nothing was found\n");
 	}
 	return;
 }
 int find_dataset_pos_by_id(int id){
-	int position;
 	for( int i = 0; i < database_size; i++){
 		if (id == database[i].ID){
-			position = i;
-			break;
+			return i;
 		}
 	}
-	return position;
+	printf("Nothing was found. Maybe you will like this?\n");
+	return 0;
 }
 void search(){
 	char choice = '0';
@@ -142,11 +151,13 @@ void search(){
 			printf("Will you buy the product? A - yes, N - no\n");
 			scanf("%s", &choice); 
 			//getchar();
-			if (choice == 'A'){
+			if (choice == 'A' && user.budget > database[dataset_pos].price){
 				user.budget -= database[dataset_pos].price;
 				user.goods[user.deals] = database[dataset_pos]; // a[b] = *(a+b*struct_size)
 				user.deals++;
 				//update report
+			} else {
+				printf("You either interrupted the buying process or don't have enough budget\n");
 			}
 		} else {
 			printf("Thank you for choosing us \n");
