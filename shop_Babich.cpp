@@ -68,11 +68,13 @@ struct ZAKAZNIK get_user_info(){
 	scanf("%s %s", &(new_user.name), &(new_user.surname));
 	printf("Input your budget\n");
 	scanf("%d", &(new_user.budget));
+	start_money = new_user.budget;
 	new_user.deals = 0;
 	return new_user;
 }
 
 //---
+
 int string_equal(char first[20], char second[20]){
 	for (int i = 0; i < 20; i++){
 		if (first[i] != second[i]){
@@ -153,13 +155,13 @@ void search(){
 			printf("Will you buy the product? A - yes, N - no\n");
 			scanf("%s", &choice); 
 			//getchar();
-			if (choice == 'A' && user.budget > database[dataset_pos].price){
+			if (choice == 'A' && user.budget > database[dataset_pos].price && database[dataset_pos].amount > 0){
 				user.budget -= database[dataset_pos].price;
 				user.goods[user.deals] = database[dataset_pos]; // a[b] = *(a+b*struct_size)
 				user.deals++;
 				//update report
 			} else {
-				printf("You either interrupted the buying process or don't have enough budget\n");
+				printf("You either interrupted the buying process \n\t or don't have enough budget \n\t or we don't have the goods.'\n");
 			}
 		} else {
 			printf("Thank you for choosing us \n");
@@ -172,8 +174,9 @@ void search(){
 //---
 
 void report(){
-	final_money = - start_money + user.budget;
-	printf("Total cost: %d \n", final_money);
+	int total = start_money - user.budget;
+	printf("Total cost: \t%d \n", total);
+	printf("Budget left: \t%d \n", user.budget);
 	for(int i = 0; i < user.deals; i++){
 		print_product(&user.goods[i]);
 	}
@@ -183,7 +186,7 @@ void report(){
 	for(int i = 0; i < user.deals; i++){
 		fprintf(textFileInput,"%s, %s, price=%d\n", user.goods[i].name, user.goods[i].manufacturer, user.goods[i].price);
 	}
-	fprintf(textFileInput,"Total: %d\n", final_money);
+	fprintf(textFileInput,"Total: %d\n", total);
 }
 
 int main(){
