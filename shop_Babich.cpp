@@ -115,7 +115,7 @@ void search(){
 	int finish_flag = 0;
 	while(true){
 		printf("1 - search by name, \t 2 - search by manufacturer, \t 3 - finish shopping \n");
-		scanf("%c", &choice); //read_char(&choice); //choice = getchar();
+		scanf("%s", &choice); //read_char(&choice); //choice = getchar();
 		getchar();
 		switch(choice) {
 			case '1':
@@ -134,21 +134,20 @@ void search(){
 		
 		if (choice != '3'){
 			printf("Choose id to get further info\n");
-			scanf("%d\n", &choice2);
-			getchar();
+			scanf("%d", &choice2);
+			//getchar();
 			printf("Here is the info about the product:\n");
 			dataset_pos = find_dataset_pos_by_id(choice2);
 			print_product2(&database[dataset_pos]);
 			printf("Will you buy the product? A - yes, N - no\n");
-			scanf("%c\n", &choice); 
-			getchar();
+			scanf("%s", &choice); 
+			//getchar();
 			if (choice == 'A'){
 				user.budget -= database[dataset_pos].price;
 				user.goods[user.deals] = database[dataset_pos]; // a[b] = *(a+b*struct_size)
 				user.deals++;
 				//update report
 			}
-			
 		} else {
 			printf("Thank you for choosing us \n");
 			break;
@@ -167,6 +166,7 @@ void report(){
 	}
 	FILE* textFileInput;
 	err = fopen_s(&textFileInput, check, "w");
+	fprintf(textFileInput,"%s, %s\n", user.name, user.surname);
 	for(int i = 0; i < user.deals; i++){
 		fprintf(textFileInput,"%s, %s, price=%d\n", user.goods[i].name, user.goods[i].manufacturer, user.goods[i].price);
 	}
