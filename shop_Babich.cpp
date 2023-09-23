@@ -72,17 +72,23 @@ struct ZAKAZNIK get_user_info(){
 
 //---
 
-int search_by_name(char input[20]){
+void search_by_name(char input[20]){
 	for( int i = 0; i < database_size; i++){
 		if (string_equal(database[i].name, input)){
 			print_product(&database[i]);
 		}
 	}
+	return;
 }
-int search_by_manufacturer(char input[20]){
-	
+void search_by_manufacturer(char input[20]){
+	for( int i = 0; i < database_size; i++){
+		if (string_equal(database[i].manufcturer, input)){
+			print_product(&database[i]);
+		}
+	}
+	return;
 }
-int find_dataset_pos_by_id(int choice2){
+int find_dataset_pos_by_id(int id){
 	
 }
 int search(){
