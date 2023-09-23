@@ -1,4 +1,3 @@
-nikita, babich
-Water, BonAqua, price=7
-Water, FreedomCo, price=4
-Total: 6746144
+Nikita, Babich
+Water, AquaMin, price=5
+Total: 5
