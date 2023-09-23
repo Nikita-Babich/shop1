@@ -1,0 +1,4 @@
+nikita, babich
+Water, BonAqua, price=7
+Water, FreedomCo, price=4
+Total: 6746144

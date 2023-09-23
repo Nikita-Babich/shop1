@@ -159,7 +159,7 @@ void search(){
 //---
 
 void report(){
-	final_money = start_money - user.budget;
+	final_money = - start_money + user.budget;
 	printf("Total cost: %d \n", final_money);
 	for(int i = 0; i < user.deals; i++){
 		print_product(&user.goods[i]);
@@ -170,7 +170,7 @@ void report(){
 	for(int i = 0; i < user.deals; i++){
 		fprintf(textFileInput,"%s, %s, price=%d\n", user.goods[i].name, user.goods[i].manufacturer, user.goods[i].price);
 	}
-	fprintf(textFileInput,"Total: %d\n");
+	fprintf(textFileInput,"Total: %d\n", final_money);
 }
 
 int main(){
