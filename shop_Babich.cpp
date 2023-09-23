@@ -72,10 +72,14 @@ struct ZAKAZNIK get_user_info(){
 
 //---
 
-int search_by_name(){
-	
+int search_by_name(char input[20]){
+	for( int i = 0; i < database_size; i++){
+		if (string_equal(database[i].name, input)){
+			print_product(&database[i]);
+		}
+	}
 }
-int search_by_manufacturer(){
+int search_by_manufacturer(char input[20]){
 	
 }
 int find_dataset_pos_by_id(int choice2){
@@ -83,6 +87,7 @@ int find_dataset_pos_by_id(int choice2){
 }
 int search(){
 	char choice = '0';
+	char searchtext[20];
 	int choice2 = -1;
 	int dataset_pos = -1;
 	int finish_flag = 0;
@@ -92,18 +97,20 @@ int search(){
 		switch(choice) {
 			case '1':
 				printf("input the name: \n");
-				search_by_name();
+				scanf("%s", &searchtext);
+				search_by_name(searchtext);
 				break;
 			case '2':
 				printf("input the manufacturer: \n");
-				search_by_manufacturer();
+				scanf("%s", &searchtext);
+				search_by_manufacturer(searchtext);
 			default:
 		}
 		
 		if (choice != '3'){
 			printf("Choose id to get further info\n");
 			scanf("%d", &choice2);
-			printf("Here is the info about the product\n");
+			printf("Here is the info about the product:\n");
 			dataset_pos = find_dataset_pos_by_id(choice2);
 			print_product2(&dataset[dataset_pos]);
 			printf("Will you buy the product? A - yes, N - no\n");
