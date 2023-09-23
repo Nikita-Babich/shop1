@@ -44,7 +44,7 @@ struct PRODUCT* read_file(){
 			new_database[i].manufacturer,
 			&new_database[i].amount,
 			&new_database[i].price
-		)
+		);
 	}
 	fclose(textFileInput);
 	return new_database; 
@@ -71,10 +71,15 @@ struct ZAKAZNIK get_user_info(){
 }
 
 //---
-int string_equal(char first[20], second[20]){
-	result = 0;
-	
-	return !result;
+int string_equal(char first[20], char second[20]){
+	for (int i = 0; i < 20; i++){
+		if (first[i] != second[i]){
+			return 0;
+		} else if (first[i] == '\0'){
+			return 1;
+		}
+	}
+	return 1;
 }
 void search_by_name(char input[20]){
 	for( int i = 0; i < database_size; i++){
@@ -110,31 +115,36 @@ void search(){
 	int finish_flag = 0;
 	while(true){
 		printf("1 - search by name, \t 2 - search by manufacturer, \t 3 - finish shopping \n");
-		scanf("%c", &choice); //read_char(&choice);
+		scanf("%c", &choice); //read_char(&choice); //choice = getchar();
+		getchar();
 		switch(choice) {
 			case '1':
 				printf("input the name: \n");
 				scanf("%s", &searchtext);
+				getchar();
 				search_by_name(searchtext);
 				break;
 			case '2':
 				printf("input the manufacturer: \n");
 				scanf("%s", &searchtext);
+				getchar();
 				search_by_manufacturer(searchtext);
 			default: ;
 		}
 		
 		if (choice != '3'){
 			printf("Choose id to get further info\n");
-			scanf("%d", &choice2);
+			scanf("%d\n", &choice2);
+			getchar();
 			printf("Here is the info about the product:\n");
 			dataset_pos = find_dataset_pos_by_id(choice2);
 			print_product2(&database[dataset_pos]);
 			printf("Will you buy the product? A - yes, N - no\n");
-			scanf("%c", &choice); 
+			scanf("%c\n", &choice); 
+			getchar();
 			if (choice == 'A'){
-				user.budget -= dataset[dataset_pos]->price;
-				user.goods[user.deals] = dataset[dataset_pos]; // a[b] = *(a+b*struct_size)
+				user.budget -= database[dataset_pos].price;
+				user.goods[user.deals] = database[dataset_pos]; // a[b] = *(a+b*struct_size)
 				user.deals++;
 				//update report
 			}

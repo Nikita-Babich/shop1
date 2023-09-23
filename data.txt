@@ -1,0 +1,16 @@
+15
+1 Juice FreedomCo 1000 12
+2 Water AquaMin 800 5
+3 Cookie Bakery 15 20
+4 Snickers Snickers 40 25
+5 Bounty Heaven 50 23
+6 Water Gemerka 600 3
+7 Water BonAqua 598 7
+8 Donut Bakery 54 3
+99 Sprite Pepsi 14 5
+100 Cocacola Pepsi 45 7
+101 Sparkling AquaMin 40 1
+102 ChocoFrog FreedomCo 3 50
+103 Cookie Snickers 40 23
+104 Donut Snickers 15 14
+105 Water FreedomCo 4 4
