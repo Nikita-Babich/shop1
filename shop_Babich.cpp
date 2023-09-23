@@ -89,7 +89,14 @@ void search_by_manufacturer(char input[20]){
 	return;
 }
 int find_dataset_pos_by_id(int id){
-	
+	int position;
+	for( int i = 0; i < database_size; i++){
+		if (id == database[i].id){
+			position = i;
+			break;
+		}
+	}
+	return position;
 }
 int search(){
 	char choice = '0';
