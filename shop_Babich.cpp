@@ -21,7 +21,7 @@ struct PRODUCT {
     char manufacturer[20];
     int amount;
     int price;
-}
+};
 struct PRODUCT* database;
 void print_product(struct PRODUCT* instance){
 	printf("ID=%d, \t %s \t %s \n", instance->ID, instance->name, instance->manufacturer);
@@ -39,15 +39,15 @@ struct PRODUCT* read_file(){
 	struct PRODUCT* new_database = (struct PRODUCT*) malloc (sizeof(struct PRODUCT) * database_size);
 	for(int i = 0; i < database_size; i++){
 		fscanf(textFileInput, "%d %s %s %d %d", 
-			&new_database[i]->ID,
-			new_database[i]->name,
-			new_database[i]->manufacturer,
-			&new_database[i]->amount,
-			&new_database[i]->price,
+			&new_database[i].ID,
+			new_database[i].name,
+			new_database[i].manufacturer,
+			&new_database[i].amount,
+			&new_database[i].price
 		)
 	}
 	fclose(textFileInput);
-	return new_database; //?
+	return new_database; 
 }
 
 //---
@@ -58,7 +58,7 @@ struct ZAKAZNIK {
     int budget;
     int deals;
     struct PRODUCT goods[50];
-}
+};
 struct ZAKAZNIK user;
 struct ZAKAZNIK get_user_info(){
 	struct ZAKAZNIK new_user;
@@ -71,7 +71,11 @@ struct ZAKAZNIK get_user_info(){
 }
 
 //---
-
+int string_equal(char first[20], second[20]){
+	result = 0;
+	
+	return !result;
+}
 void search_by_name(char input[20]){
 	for( int i = 0; i < database_size; i++){
 		if (string_equal(database[i].name, input)){
@@ -82,7 +86,7 @@ void search_by_name(char input[20]){
 }
 void search_by_manufacturer(char input[20]){
 	for( int i = 0; i < database_size; i++){
-		if (string_equal(database[i].manufcturer, input)){
+		if (string_equal(database[i].manufacturer, input)){
 			print_product(&database[i]);
 		}
 	}
@@ -91,14 +95,14 @@ void search_by_manufacturer(char input[20]){
 int find_dataset_pos_by_id(int id){
 	int position;
 	for( int i = 0; i < database_size; i++){
-		if (id == database[i].id){
+		if (id == database[i].ID){
 			position = i;
 			break;
 		}
 	}
 	return position;
 }
-int search(){
+void search(){
 	char choice = '0';
 	char searchtext[20];
 	int choice2 = -1;
@@ -117,7 +121,7 @@ int search(){
 				printf("input the manufacturer: \n");
 				scanf("%s", &searchtext);
 				search_by_manufacturer(searchtext);
-			default:
+			default: ;
 		}
 		
 		if (choice != '3'){
@@ -125,7 +129,7 @@ int search(){
 			scanf("%d", &choice2);
 			printf("Here is the info about the product:\n");
 			dataset_pos = find_dataset_pos_by_id(choice2);
-			print_product2(&dataset[dataset_pos]);
+			print_product2(&database[dataset_pos]);
 			printf("Will you buy the product? A - yes, N - no\n");
 			scanf("%c", &choice); 
 			if (choice == 'A'){
@@ -140,6 +144,7 @@ int search(){
 			break;
 		}
 	}
+	return;
 }
 
 //---
@@ -150,6 +155,12 @@ void report(){
 	for(int i = 0; i < user.deals; i++){
 		print_product(&user.goods[i]);
 	}
+	FILE* textFileInput;
+	err = fopen_s(&textFileInput, check, "w");
+	for(int i = 0; i < user.deals; i++){
+		fprintf(textFileInput,"%s, %s, price=%d\n", user.goods[i].name, user.goods[i].manufacturer, user.goods[i].price);
+	}
+	fprintf(textFileInput,"Total: %d\n");
 }
 
 int main(){
